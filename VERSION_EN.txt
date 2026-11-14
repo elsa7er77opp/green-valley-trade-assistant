@@ -1,0 +1,95 @@
+GREEN VALLEY TRADE ASSISTANT - 1.0.0
+Built: 7 September 2026
+============================================================
+
+COMPONENTS
+----------
+Desktop application   GREEN_VALLEY_TRADE_ASSISTANT.exe   built 7 Sep 2026
+Aspire extension      Aspire Trade Extension             version 0.6.2
+Guide                 USER_GUIDE_AR.md (Arabic)
+                      README_EN.md (English)
+
+
+TESTS AT BUILD TIME
+-------------------
+Extension contract tests     11 / 11 passing
+Desktop application tests    58 / 58 passing
+
+The build refuses to produce a release if a single test fails.
+
+
+WHAT IS NEW IN 1.0.0
+--------------------
+1. The Settlement field follows the selected side.
+   BUY  -> locked to NORMAL (a BUY ticket has no settlement
+           field in Aspire at all)
+   SELL -> cleared, options become T+0 / T+1 / T+2 only
+
+   The same rule is enforced in the plan model, not only in the
+   user interface: a BUY plan carrying T+n and a SELL plan
+   carrying NORMAL are both refused before they reach Aspire.
+
+   The tool still never chooses a settlement period for the
+   user. That is why switching to SELL empties the field rather
+   than filling in a period.
+
+2. Diagnostics are no longer written to Downloads automatically.
+   The last 10 captures are always kept inside the extension,
+   and one button in the extension popup exports them on demand.
+   Automatic writing can be re-enabled from the same popup.
+
+
+PROVEN LIVE ON ASPIRE
+---------------------
+[verified] Reading Open Orders inside the application
+[verified] Filling a BUY ticket through to the confirmation screen
+[verified] Filling a SELL ticket through to the confirmation screen
+[verified] A real BUY order submitted and verified in Open Orders
+[verified] A real SELL order submitted and verified - twice
+[verified] A 10-rung BUY ladder, every rung verified
+[verified] Orders that filled instantly, with the ladder continuing
+           past them (postCheckMatch: EXECUTED)
+[verified] The settlement guard refusing to guess a period
+
+
+NOT YET EXERCISED LIVE
+----------------------
+[untested] A full SELL ladder. Single SELL orders are proven and
+           the ladder is proven on BUY. It uses the same per-order
+           path, so nothing technical stands in the way, but it has
+           not been observed running.
+
+           Suggested test: two rungs, small quantity, both priced
+           above the ask so they rest in Open Orders and can be
+           verified, then cancelled by hand.
+
+[untested] The new settlement behaviour against a real Aspire
+           ticket. Covered by 9 tests, but not yet seen live.
+
+[untested] The message INSUFFICIENT_BUYING_POWER_ZERO
+[untested] The message TICKET_SETTLEMENT_SELECTION_NOT_VERIFIED
+
+Both messages are written and covered by tests, but have not
+appeared in a live run. They will appear when they are needed.
+
+
+KNOWN LIMITS
+------------
+- An Edge extension that is not published to the store must be
+  loaded manually once via Load unpacked. No installer can do
+  this step.
+- After installation the extension receives a new ID in Edge, so
+  the pairing token must be pasted once more.
+- Aspire does not show the settlement period on its confirmation
+  screen, so it cannot be verified there. The value seen on the
+  ticket is the only reference.
+- POSTCHECK_NOT_VERIFIED does not mean the order was not sent.
+  Check Aspire yourself before repeating any plan.
+
+
+NOTICE
+------
+This program is an execution and assistance tool, not an
+investment advisory tool. Every decision to buy, sell, price or
+time an order belongs to the user alone, and Sponsor Mode sends
+real orders with real money.

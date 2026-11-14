@@ -1,0 +1,20 @@
+{
+  "manifest_version": 3,
+  "name": "GREEN VALLEY Aspire Trade Assistant",
+  "description": "Open-order analysis plus guarded, user-confirmed execution plans that require live selector validation.",
+  "version": "0.6.2",
+  "permissions": ["activeTab", "storage", "downloads", "scripting", "debugger"],
+  "host_permissions": ["https://trade.aspiresecurities.com/*", "http://127.0.0.1:55230/*"],
+  "action": {
+    "default_title": "GREEN VALLEY Order Reader",
+    "default_popup": "popup/popup.html"
+  },
+  "background": { "service_worker": "background.js" },
+  "content_scripts": [
+    {
+      "matches": ["https://trade.aspiresecurities.com/NewEtrade/*", "https://trade.aspiresecurities.com/newetrade/*"],
+      "js": ["shared/order-model.js", "content/aspire-selectors.js", "content/aspire-execution-selectors.js", "content/aspire-reader.js", "content/aspire-executor.js", "content/content.js"],
+      "run_at": "document_idle"
+    }
+  ]
+}

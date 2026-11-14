@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+  <head><meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" /><title>GREEN VALLEY Aspire Trade Assistant</title><link rel="stylesheet" href="popup.css" /></head>
+  <body>
+    <header><span class="mark">GV</span><div><strong>Trade Assistant</strong><small>Direct guarded workflow</small></div></header>
+    <main>
+      <button id="read">Refresh Open Orders</button>
+      <button id="diagnostic" class="secondary">Capture grid diagnostic</button>
+      <button id="ticket-diagnostic" class="secondary">Capture Ticket diagnostic</button>
+      <button id="capture-sell-ticket-diagnostic" class="secondary">SELL ONLY — capture real SELL ticket</button>
+      <p class="diagnostic-version">SELL diagnostic build: 0.6.2</p>
+      <button id="arm-ticket-diagnostic" class="secondary">Arm focused Ticket diagnostic</button>
+      <button id="arm-confirmation-diagnostic" class="secondary">Arm confirmation diagnostic</button>
+      <section class="diagnostic-downloads">
+        <label><input id="diagnostic-downloads" type="checkbox" /> Save diagnostics to Downloads automatically</label>
+        <p class="hint">Off by default. The last 10 captures are always kept inside the extension, so nothing is lost when this is off.</p>
+        <button id="save-last-diagnostics" class="secondary">Save the last captured diagnostics</button>
+      </section>
+      <section class="desktop-bridge">
+        <h2>Desktop bridge</h2>
+        <input id="desktop-bridge-token" placeholder="Paste the one-time desktop pairing token" autocomplete="off" />
+        <button id="save-desktop-bridge" class="secondary">Pair with GREEN VALLEY Trade Assistant</button>
+        <button id="test-desktop-bridge" class="secondary">Test desktop connection</button>
+        <p id="desktop-bridge-status">Not paired. The extension popup remains available until desktop pairing is configured.</p>
+      </section>
+      <p id="status">Open Aspire’s Order List or New Order ticket, then refresh.</p>
+      <section id="summary" hidden><h2>Open-order map</h2><div class="table-wrap"><table><thead><tr><th>Symbol</th><th>Side</th><th>Orders</th><th>Qty</th><th>W. Avg.</th></tr></thead><tbody id="groups"></tbody></table></div></section>
+      <section id="details" hidden><h2>Visible orders</h2><div class="table-wrap"><table><thead><tr><th>Symbol</th><th>Side</th><th>Remaining</th><th>Price</th><th>Status</th></tr></thead><tbody id="orders"></tbody></table></div></section>
+      <section class="guarded">
+        <h2>New order — direct preview</h2>
+        <div class="grid"><input id="account" placeholder="Account, e.g. C / EGP" /><input id="symbol" placeholder="Symbol, e.g. COMI" /><select id="side"><option value="BUY">BUY</option><option value="SELL">SELL</option></select><input id="quantity" inputmode="numeric" placeholder="Quantity" /><input id="price" inputmode="decimal" placeholder="Limit price" /><select id="validity"><option value="DAY">DAY</option><option value="GTC">GTC</option></select><select id="settlement" aria-label="Settlement"><option value="NORMAL">عادي / NORMAL</option><option value="T+0">T+0</option><option value="T+1">T+1</option><option value="T+2">T+2</option></select></div>
+        <label class="sponsor-mode"><input id="sponsor-mode" type="checkbox" /> One-Tap Sponsor Mode</label>
+        <button id="preview">Create immutable preview</button>
+        <div id="preview-box" hidden></div>
+        <button id="prepare-confirmation" disabled>Prepare Aspire confirmation from preview</button>
+        <button id="populate" disabled hidden>Fill Aspire ticket from preview</button>
+        <button id="open-confirmation" disabled hidden>Open Aspire confirmation from preview</button>
+        <button id="validate" disabled hidden>Validate ticket and preview</button>
+        <input id="confirmation" placeholder="Exact confirmation phrase" disabled />
+        <button id="execute" disabled hidden>Execute confirmed order</button>
+        <button id="stop" class="danger">EMERGENCY STOP</button>
+        <p id="execution-status">No plan yet. This popup cannot send anything until ticket selectors are validated.</p>
+      </section>
+    </main>
+    <footer>You author every symbol, side, quantity, price, and validity. Any selector, precheck, confirmation, or postcheck mismatch stops execution.</footer>
+    <script src="popup.js"></script>
+  </body>
+</html>
