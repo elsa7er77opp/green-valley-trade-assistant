@@ -14,7 +14,7 @@ For offline review, open the extension manifest, order model and executor source
 
 Version 1.0.0 delivery bundle. Live execution unverified.
 
-All tracked extension JavaScript files passed `node --check`. The release record reports 11 extension and 58 desktop tests passing at build time. Both shipped EXEs returned `NotSigned` in an Authenticode check. Neither binary ran during this review.
+All tracked extension JavaScript files passed `node --check`. The release record reports 11 extension and 58 desktop tests passing at build time. Both shipped EXEs returned `NotSigned` in an Authenticode check. The installer and portable binary match the corresponding files in the local delivery bundle by SHA-256. A separate version-labelled local portable executable has a different hash. No signed build attestation or written brokerage/client redistribution grant was established. Neither binary ran during this review.
 
 ## Source and evidence
 
